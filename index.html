@@ -3,42 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>INSS App - Verificación Biométrica</title>
-  <!-- Tailwind CSS CDN -->
+  <title>INSS App</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons CDN -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     .hidden { display: none; }
     video { width: 100%; height: auto; max-height: 320px; object-fit: cover; }
   </style>
 </head>
 <body class="bg-gradient-to-b from-blue-400 to-blue-800 text-gray-900">
-
-<!-- Contenedor principal -->
 <div id="app" class="min-h-screen flex flex-col items-center justify-center p-4">
-
   <!-- Pantalla LOGIN -->
   <div id="screen-login" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <div class="bg-white p-2 rounded-full shadow-lg mb-4">
-        <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover" />
-      </div>
-      <h1 class="text-white text-2xl font-bold">INSTITUTO NICARAGÜENSE DE SEGURIDAD SOCIAL</h1>
+      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
+      <h1 class="text-white text-2xl font-bold">INSS</h1>
     </div>
     <div class="p-8">
       <form id="login-form">
         <div class="mb-6 relative">
-          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-            <i data-lucide="user" class="h-5 w-5"></i>
-          </div>
-          <input type="text" id="login-username" placeholder="Nombre de usuario" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+          <input type="text" id="login-username" placeholder="Nombre de usuario" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
         </div>
         <div class="mb-6 relative">
-          <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-            <i data-lucide="lock" class="h-5 w-5"></i>
-          </div>
-          <input type="password" id="login-password" placeholder="Contraseña" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+          <input type="password" id="login-password" placeholder="Contraseña" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
         </div>
         <p id="login-error" class="hidden text-red-500 text-sm mb-4">Credenciales incorrectas.</p>
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">INICIAR SESIÓN</button>
@@ -52,10 +43,8 @@
   <!-- Pantalla REGISTRO -->
   <div id="screen-register" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <div class="bg-white p-2 rounded-full shadow-lg mb-4">
-        <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover" />
-      </div>
-      <h1 class="text-white text-2xl font-bold">REGISTRO DE USUARIO</h1>
+      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
+      <h1 class="text-white text-2xl font-bold">Registro de Usuario</h1>
     </div>
     <div class="p-8">
       <form id="register-form">
@@ -66,48 +55,28 @@
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Número de cédula</label>
           <input type="text" id="reg-idnumber" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" maxlength="16" required />
-          <p class="text-xs text-gray-500 mt-1">Formato: XXX-XXXXXX-XXXXX (16 caracteres incluyendo guiones)</p>
+          <p class="text-xs text-gray-500 mt-1">Formato: XXX-XXXXXX-XXXXX</p>
           <p id="id-error" class="hidden text-red-500 text-xs mt-1">Formato inválido</p>
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2">Dirección de cédula</label>
+          <label class="block text-gray-700 text-sm font-bold mb-2">Dirección</label>
           <input type="text" id="reg-address" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Correo electrónico</label>
-          <div class="relative">
-            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-              <i data-lucide="mail" class="h-5 w-5"></i>
-            </div>
-            <input type="email" id="reg-email" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
+          <input type="email" id="reg-email" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Nombre de usuario</label>
-          <div class="relative">
-            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-              <i data-lucide="user" class="h-5 w-5"></i>
-            </div>
-            <input type="text" id="reg-username" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
+          <input type="text" id="reg-username" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
-          <div class="relative">
-            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-              <i data-lucide="lock" class="h-5 w-5"></i>
-            </div>
-            <input type="password" id="reg-password" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
+          <input type="password" id="reg-password" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
         </div>
         <div class="mb-6">
           <label class="block text-gray-700 text-sm font-bold mb-2">Confirmar contraseña</label>
-          <div class="relative">
-            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-              <i data-lucide="lock" class="h-5 w-5"></i>
-            </div>
-            <input type="password" id="reg-confirmpass" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
+          <input type="password" id="reg-confirmpass" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
           <p id="pass-error" class="hidden text-red-500 text-xs mt-1">Las contraseñas no coinciden</p>
         </div>
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">SIGUIENTE</button>
@@ -121,78 +90,73 @@
   <!-- Pantalla VERIFICACIÓN BIOMÉTRICA -->
   <div id="screen-verification" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <div class="bg-white p-2 rounded-full shadow-lg mb-4">
-        <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover" />
-      </div>
-      <h1 class="text-white text-2xl font-bold">VERIFICACIÓN BIOMÉTRICA</h1>
+      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
+      <h1 class="text-white text-2xl font-bold">Verificación Biométrica</h1>
     </div>
     <div class="p-8">
-      <div class="mb-6">
-        <h2 class="text-lg font-semibold mb-4">Complete los siguientes pasos:</h2>
-        <ol class="list-decimal pl-5 space-y-3">
-          <li>Foto de su rostro de frente</li>
-          <li>Foto de su rostro de perfil</li>
-          <li>Foto del frente de su cédula</li>
-          <li>Foto del reverso de su cédula</li>
-          <li>Video con movimientos faciales</li>
-        </ol>
-      </div>
-      <button type="button" onclick="showScreen('face-front')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">COMENZAR VERIFICACIÓN</button>
+      <ol class="list-decimal pl-5 space-y-3">
+        <li>Foto de su rostro de frente</li>
+        <li>Foto de su rostro de perfil</li>
+        <li>Foto del frente de su cédula</li>
+        <li>Foto del reverso de su cédula</li>
+        <li>Video con movimientos faciales</li>
+      </ol>
+      <button type="button" onclick="showScreen('face-front')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg mt-6">Comenzar Verificación</button>
     </div>
   </div>
 
   <!-- Pantalla CAPTURA FOTO DE FRENTE -->
   <div id="screen-face-front" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-4 text-center">
-      <h2 class="text-white text-xl font-bold">FOTO DE ROSTRO (FRENTE)</h2>
+      <h2 class="text-white text-xl font-bold">Foto de Rostro (Frente)</h2>
     </div>
     <div class="p-4">
       <div class="relative w-full h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
         <video id="camera-video" autoplay playsinline class="w-full h-full object-cover"></video>
       </div>
       <p class="text-center mb-4">Por favor, mire directamente a la cámara</p>
-      <button type="button" onclick="capturePhoto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">CAPTURAR FOTO</button>
+      <button type="button" onclick="capturePhoto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">Capturar Foto</button>
     </div>
   </div>
 
-  <!-- Pantalla CAPTURA FOTO DE PERFIL -->
+  <!-- Pantalla CAPTURA PERFIL -->
   <div id="screen-face-profile" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-4 text-center">
-      <h2 class="text-white text-xl font-bold">FOTO DE ROSTRO (PERFIL)</h2>
+      <h2 class="text-white text-xl font-bold">Foto de Rostro (Perfil)</h2>
     </div>
     <div class="p-4">
       <div class="relative w-full h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
         <video id="camera-video-profile" autoplay playsinline class="w-full h-full object-cover"></video>
       </div>
-      <p class="text-center mb-4">Por favor, gire su rostro hacia un lado</p>
+      <p class="text-center mb-4">Gire su rostro hacia un lado</p>
       <button type="button" onclick="capturePhoto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">CAPTURAR FOTO</button>
     </div>
   </div>
 
-  <!-- Pantalla CAPTURA FOTO DE CÉDULA (FRENTE) -->
+  <!-- Pantalla CAPTURA FRENTE DE LA CÉDULA -->
   <div id="screen-id-front" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-4 text-center">
-      <h2 class="text-white text-xl font-bold">FOTO DE CÉDULA (FRENTE)</h2>
+      <h2 class="text-white text-xl font-bold">Foto de Cédula (Frente)</h2>
     </div>
     <div class="p-4">
       <div class="relative w-full h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
         <video id="camera-video-idfront" autoplay playsinline class="w-full h-full object-cover"></video>
       </div>
-      <p class="text-center mb-4">Tome una foto clara del frente de su cédula</p>
+      <p class="text-center mb-4">Muestre el frente de su cédula</p>
       <button type="button" onclick="capturePhoto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">CAPTURAR FOTO</button>
     </div>
   </div>
 
-  <!-- Pantalla CAPTURA FOTO DE CÉDULA (REVERSO) -->
+  <!-- Pantalla CAPTURA REVERSO DE LA CÉDULA -->
   <div id="screen-id-back" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-4 text-center">
-      <h2 class="text-white text-xl font-bold">FOTO DE CÉDULA (REVERSO)</h2>
+      <h2 class="text-white text-xl font-bold">Foto de Cédula (Reverso)</h2>
     </div>
     <div class="p-4">
       <div class="relative w-full h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
         <video id="camera-video-idback" autoplay playsinline class="w-full h-full object-cover"></video>
       </div>
-      <p class="text-center mb-4">Tome una foto clara del reverso de su cédula</p>
+      <p class="text-center mb-4">Muestre el reverso de su cédula</p>
       <button type="button" onclick="capturePhoto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">CAPTURAR FOTO</button>
     </div>
   </div>
@@ -200,7 +164,7 @@
   <!-- Pantalla MOVIMIENTOS FACIALES -->
   <div id="screen-facial-movements" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-4 text-center">
-      <h2 class="text-white text-xl font-bold">MOVIMIENTOS FACIALES</h2>
+      <h2 class="text-white text-xl font-bold">Movimientos Faciales</h2>
     </div>
     <div class="p-4">
       <div class="relative w-full h-64 bg-gray-200 rounded-lg overflow-hidden mb-4">
@@ -220,18 +184,14 @@
   <!-- Pantalla COMPLETO -->
   <div id="screen-complete" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <div class="bg-white p-2 rounded-full shadow-lg mb-4">
-        <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover" />
-      </div>
-      <h1 class="text-white text-2xl font-bold">VERIFICACIÓN COMPLETA</h1>
-    </div>
-    <div class="p-8 text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-green-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
       </svg>
-      <h2 class="text-xl font-bold text-gray-800 mb-2">¡Registro exitoso!</h2>
-      <p class="text-gray-600">Su verificación biométrica ha sido completada satisfactoriamente.</p>
-      <button type="button" onclick="showScreen('login')" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">VOLVER AL INICIO</button>
+      <h1 class="text-white text-2xl font-bold">¡Registro exitoso!</h1>
+    </div>
+    <div class="p-8 text-center">
+      <p class="text-gray-600 mb-6">Su verificación biométrica ha sido completada satisfactoriamente.</p>
+      <button type="button" onclick="showScreen('login')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg">Volver al inicio</button>
     </div>
   </div>
 
@@ -241,7 +201,7 @@
       <div class="container mx-auto px-4 py-6 flex justify-between items-center">
         <div class="flex items-center space-x-4">
           <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-16 h-16 object-contain" />
-          <h1 class="text-2xl font-bold">INSTITUTO NICARAGÜENSE DE SEGURIDAD SOCIAL</h1>
+          <h1 class="text-2xl font-bold">INSS</h1>
         </div>
         <button onclick="logout()" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium">Cerrar Sesión</button>
       </div>
@@ -252,15 +212,12 @@
           <h2 class="text-xl font-bold mb-6 text-blue-600">Menú Principal</h2>
           <nav>
             <ul class="space-y-4">
-              <li><button onclick="showDashboard()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg hover:bg-blue-50"><i data-lucide="home" class="text-blue-500 h-5 w-5"></i><span>Inicio</span></button></li>
-              <li><button onclick="showHistorial()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg bg-blue-100 text-blue-600"><i data-lucide="file-text" class="text-blue-500 h-5 w-5"></i><span>Solicitar Historial</span></button></li>
+              <li><button onclick="showDashboard()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg hover:bg-blue-50">🏠 Inicio</button></li>
+              <li><button onclick="showHistorial()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg bg-blue-100 text-blue-600">📄 Solicitar Historial</button></li>
             </ul>
           </nav>
         </div>
         <div class="bg-white rounded-lg shadow-md p-6 md:col-span-3">
-          <div class="flex justify-center mb-8">
-            <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-48 h-48 object-contain" />
-          </div>
           <h2 class="text-2xl font-bold text-center text-blue-600 mb-4">Bienvenido al Sistema del INSS</h2>
           <p class="text-center text-gray-600">Seleccione una opción del menú para realizar trámites o consultas.</p>
         </div>
@@ -274,7 +231,7 @@
       <div class="container mx-auto px-4 py-6 flex justify-between items-center">
         <div class="flex items-center space-x-4">
           <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-16 h-16 object-contain" />
-          <h1 class="text-2xl font-bold">INSTITUTO NICARAGÜENSE DE SEGURIDAD SOCIAL</h1>
+          <h1 class="text-2xl font-bold">INSS</h1>
         </div>
         <button onclick="logout()" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium">Cerrar Sesión</button>
       </div>
@@ -285,8 +242,8 @@
           <h2 class="text-xl font-bold mb-6 text-blue-600">Menú Principal</h2>
           <nav>
             <ul class="space-y-4">
-              <li><button onclick="showDashboard()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg hover:bg-blue-50"><i data-lucide="home" class="text-blue-500 h-5 w-5"></i><span>Inicio</span></button></li>
-              <li><button onclick="showHistorial()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg bg-blue-100 text-blue-600"><i data-lucide="file-text" class="text-blue-500 h-5 w-5"></i><span>Solicitar Historial</span></button></li>
+              <li><button onclick="showDashboard()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg hover:bg-blue-50">🏠 Inicio</button></li>
+              <li><button onclick="showHistorial()" class="flex items-center space-x-3 w-full px-4 py-2 rounded-lg bg-blue-100 text-blue-600">📄 Solicitar Historial</button></li>
             </ul>
           </nav>
         </div>
@@ -316,31 +273,21 @@
       </div>
     </main>
   </div>
-
 </div>
 
 <script>
   // Mostrar pantalla
   function showScreen(id) {
-    document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add("hidden"));
     const screen = document.getElementById(`screen-${id}`);
     if (screen) {
-      screen.classList.remove('hidden');
+      screen.classList.remove("hidden");
       if (id === 'face-front' || id === 'face-profile' || id === 'id-front' || id === 'id-back' || id === 'facial-movements') {
         startCamera(id);
       } else if (id === 'complete') {
         stopAllCameras();
       }
     }
-  }
-
-  // Navegación desde dashboard
-  function showDashboard() {
-    showScreen('dashboard');
-  }
-
-  function showHistorial() {
-    showScreen('historial');
   }
 
   function logout() {
@@ -354,7 +301,6 @@
     const username = document.getElementById("login-username").value;
     const password = document.getElementById("login-password").value;
     const error = document.getElementById("login-error");
-
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
       error.classList.add("hidden");
@@ -370,10 +316,8 @@
     const pass = document.getElementById("reg-password").value;
     const confirmPass = document.getElementById("reg-confirmpass").value;
     const idNumber = document.getElementById("reg-idnumber").value;
-
     const passError = document.getElementById("pass-error");
     const idError = document.getElementById("id-error");
-
     const idRegex = /^[A-Za-z0-9]{3}-[A-Za-z0-9]{6}-[A-Za-z0-9]{5}$/;
 
     if (pass !== confirmPass) {
@@ -382,7 +326,6 @@
     } else {
       passError.classList.add("hidden");
     }
-
     if (!idRegex.test(idNumber)) {
       idError.classList.remove("hidden");
       return;
@@ -410,8 +353,7 @@
   let currentVideoElement = null;
 
   function startCamera(screenId) {
-    stopAllCameras(); // Limpiar cualquier flujo previo
-
+    stopAllCameras();
     switch(screenId) {
       case 'face-front':
         currentVideoElement = document.getElementById("camera-video");
@@ -429,9 +371,7 @@
         currentVideoElement = document.getElementById("camera-video-facial");
         break;
     }
-
     if (!currentVideoElement) return;
-
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
@@ -457,11 +397,14 @@
   function capturePhoto() {
     const canvas = document.createElement("canvas");
     let currentVideo = null;
-
-    if (document.getElementById("screen-face-front").classList.contains("hidden")) {
-      currentVideo = document.getElementById("camera-video-profile");
-    } else {
+    if (!document.getElementById("screen-face-front").classList.contains("hidden")) {
       currentVideo = document.getElementById("camera-video");
+    } else if (!document.getElementById("screen-face-profile").classList.contains("hidden")) {
+      currentVideo = document.getElementById("camera-video-profile");
+    } else if (!document.getElementById("screen-id-front").classList.contains("hidden")) {
+      currentVideo = document.getElementById("camera-video-idfront");
+    } else if (!document.getElementById("screen-id-back").classList.contains("hidden")) {
+      currentVideo = document.getElementById("camera-video-idback");
     }
 
     if (!currentVideo) return;
@@ -472,31 +415,27 @@
     ctx.drawImage(currentVideo, 0, 0, canvas.width, canvas.height);
     const photoData = canvas.toDataURL("image/png");
 
-    switch(getCurrentStep()) {
-      case 'face-front':
-        localStorage.setItem('faceFront', photoData);
-        showScreen('face-profile');
-        break;
-      case 'face-profile':
-        localStorage.setItem('faceProfile', photoData);
-        showScreen('id-front');
-        break;
-      case 'id-front':
-        localStorage.setItem('idFront', photoData);
-        showScreen('id-back');
-        break;
-      case 'id-back':
-        localStorage.setItem('idBack', photoData);
-        showScreen('facial-movements');
-        resetFacialMovements();
-        break;
+    const step = getCurrentStep();
+    if (step === 'face-front') {
+      localStorage.setItem('faceFront', photoData);
+      showScreen('face-profile');
+    } else if (step === 'face-profile') {
+      localStorage.setItem('faceProfile', photoData);
+      showScreen('id-front');
+    } else if (step === 'id-front') {
+      localStorage.setItem('idFront', photoData);
+      showScreen('id-back');
+    } else if (step === 'id-back') {
+      localStorage.setItem('idBack', photoData);
+      showScreen('facial-movements');
+      resetFacialMovements();
     }
   }
 
   function getCurrentStep() {
     const steps = ['face-front', 'face-profile', 'id-front', 'id-back'];
     for (const step of steps) {
-      if (!document.getElementById(`screen-${step}`).classList.contains('hidden')) {
+      if (!document.getElementById(`screen-${step}`).classList.contains("hidden")) {
         return step;
       }
     }
@@ -518,6 +457,17 @@
     updateFacialInstruction();
   }
 
+  function updateFacialInstruction() {
+    const move = movements[movementIndex];
+    const icon = document.getElementById("movement-icon");
+    const text = document.getElementById("movement-text");
+    const step = document.getElementById("movement-step");
+    icon.innerHTML = `<i data-lucide="${move.icon}" class="h-12 w-12 text-blue-500"></i>`;
+    text.textContent = move.instruction;
+    step.textContent = move.stepText;
+    lucide.createIcons();
+  }
+
   function nextFacialMovement() {
     if (movementIndex < movements.length - 1) {
       movementIndex++;
@@ -528,25 +478,11 @@
     }
   }
 
-  function updateFacialInstruction() {
-    const move = movements[movementIndex];
-    const icon = document.getElementById("movement-icon");
-    const text = document.getElementById("movement-text");
-    const step = document.getElementById("movement-step");
-
-    icon.innerHTML = `<i data-lucide="${move.icon}" class="h-12 w-12 text-blue-500"></i>`;
-    text.textContent = move.instruction;
-    step.textContent = move.stepText;
-
-    lucide.createIcons();
-  }
-
-  // Actualizar placeholder según tipo de documento
+  // Actualizar placeholder tipo documento
   function updateHistorialPlaceholder() {
     const tipo = document.querySelector('input[name="tipoDocumento"]:checked').value;
     const input = document.getElementById("historial-input");
     const label = document.getElementById("historial-label");
-
     if (tipo === "cedula") {
       label.textContent = "Número de Cédula";
       input.placeholder = "XXX-XXXXXX-XXXXX";
@@ -556,17 +492,68 @@
     }
   }
 
-  // Manejar envío de solicitud de historial
+  // Manejar envío del historial
   document.getElementById("historial-form").addEventListener("submit", function(e) {
     e.preventDefault();
     const tipo = document.querySelector('input[name="tipoDocumento"]:checked').value;
     const valor = document.getElementById("historial-input").value;
-    alert(`Solicitud de historial enviada con ${tipo}: ${valor}`);
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    let userData = null;
+    if (tipo === 'cedula') {
+      userData = users.find(u => u.idNumber === valor);
+    } else {
+      userData = users.find(u => u.username === valor); // ejemplo simple
+    }
+    if (!userData) {
+      alert("Usuario no encontrado.");
+      return;
+    }
+    generateHistorialPDF(userData);
   });
+
+  // Generar PDF del historial
+  function generateHistorialPDF(userData) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("INSTITUTO NICARAGÜENSE DE SEGURIDAD SOCIAL", 20, 20);
+
+    doc.setFontSize(14);
+    doc.text("Datos del Afiliado", 20, 40);
+    doc.setFontSize(12);
+    doc.text(`Nombre Completo: ${userData.fullName}`, 20, 50);
+    doc.text(`Cédula: ${userData.idNumber}`, 20, 60);
+    doc.text(`Dirección: ${userData.idAddress}`, 20, 70);
+    doc.text(`Correo Electrónico: ${userData.email}`, 20, 80);
+
+    doc.text("Historial Laboral", 20, 100);
+    doc.line(20, 102, 190, 102);
+
+    let y = 110;
+    const sampleJobs = [
+      { employer: "Empresa A", from: "2010", to: "2015", salary: "$500" },
+      { employer: "Empresa B", from: "2015", to: "2020", salary: "$700" },
+      { employer: "Empresa C", from: "2020", to: "Actualidad", salary: "$900" }
+    ];
+    sampleJobs.forEach(job => {
+      doc.text(`${job.employer} (${job.from} - ${job.to})`, 20, y);
+      doc.text(`Salario: ${job.salary}`, 20, y + 8);
+      y += 16;
+    });
+    doc.save(`historial_${userData.idNumber}.pdf`);
+  }
+
+  // Navegación desde dashboard
+  function showDashboard() {
+    showScreen('dashboard');
+  }
+  function showHistorial() {
+    showScreen('historial');
+  }
 
   // Inicializar íconos
   lucide.createIcons();
 </script>
-
 </body>
 </html>
