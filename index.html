@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>INSS App</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <title>INSS App - Historial Biométrico</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com "></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide @latest"></script>
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js "></script>
   <style>
     .hidden { display: none; }
     video { width: 100%; height: auto; max-height: 320px; object-fit: cover; }
@@ -20,7 +20,7 @@
   <!-- Pantalla LOGIN -->
   <div id="screen-login" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
+      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg " alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
       <h1 class="text-white text-2xl font-bold">INSS</h1>
     </div>
     <div class="p-8">
@@ -43,7 +43,7 @@
   <!-- Pantalla REGISTRO -->
   <div id="screen-register" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
+      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg " alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
       <h1 class="text-white text-2xl font-bold">Registro de Usuario</h1>
     </div>
     <div class="p-8">
@@ -57,6 +57,7 @@
           <input type="text" id="reg-idnumber" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" maxlength="16" required />
           <p class="text-xs text-gray-500 mt-1">Formato: XXX-XXXXXX-XXXXX</p>
           <p id="id-error" class="hidden text-red-500 text-xs mt-1">Formato inválido</p>
+          <p id="id-taken" class="hidden text-red-500 text-xs mt-1">Ya hay un usuario con esta cédula</p>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Dirección</label>
@@ -69,6 +70,7 @@
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Nombre de usuario</label>
           <input type="text" id="reg-username" class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+          <p id="username-taken" class="hidden text-red-500 text-xs mt-1">Nombre de usuario no disponible</p>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
@@ -90,7 +92,7 @@
   <!-- Pantalla VERIFICACIÓN BIOMÉTRICA -->
   <div id="screen-verification" class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden hidden">
     <div class="bg-blue-600 p-6 flex flex-col items-center">
-      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
+      <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg " alt="Logo INSS" class="w-24 h-24 object-cover mb-4 bg-white p-2 rounded-full" />
       <h1 class="text-white text-2xl font-bold">Verificación Biométrica</h1>
     </div>
     <div class="p-8">
@@ -200,7 +202,7 @@
     <header class="bg-blue-600 text-white shadow-md">
       <div class="container mx-auto px-4 py-6 flex justify-between items-center">
         <div class="flex items-center space-x-4">
-          <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-16 h-16 object-contain" />
+          <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg " alt="Logo INSS" class="w-16 h-16 object-contain" />
           <h1 class="text-2xl font-bold">INSS</h1>
         </div>
         <button onclick="logout()" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium">Cerrar Sesión</button>
@@ -230,7 +232,7 @@
     <header class="bg-blue-600 text-white shadow-md">
       <div class="container mx-auto px-4 py-6 flex justify-between items-center">
         <div class="flex items-center space-x-4">
-          <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg" alt="Logo INSS" class="w-16 h-16 object-contain" />
+          <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg " alt="Logo INSS" class="w-16 h-16 object-contain" />
           <h1 class="text-2xl font-bold">INSS</h1>
         </div>
         <button onclick="logout()" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium">Cerrar Sesión</button>
@@ -275,8 +277,45 @@
   </div>
 </div>
 
+<!-- Plantilla HTML para generar el PDF -->
+<div id="pdf-template" style="display: none;">
+  <div class="flex justify-between mb-4">
+    <img src="https://raw.githubusercontent.com/Bernard1702/historialinss/main/logoinss.jpeg " alt="Logo INSS" class="w-24 h-auto" />
+    <div class="text-center">
+      <h1 class="text-2xl font-bold">REPORTE DEL HISTORIAL LABORAL</h1>
+      <p class="text-sm">Instituto Nicaragüense de Seguridad Social</p>
+    </div>
+  </div>
+  <table class="w-full border-collapse border border-black text-sm">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border border-black px-2 py-1">Año</th>
+        <th class="border border-black px-2 py-1">Mes</th>
+        <th class="border border-black px-2 py-1">Semanas Cotizadas</th>
+        <th class="border border-black px-2 py-1">Aporte IVM (C$)</th>
+        <th class="border border-black px-2 py-1">Categoría-Salario Cotizable (C$)</th>
+        <th class="border border-black px-2 py-1">Empleador</th>
+      </tr>
+    </thead>
+    <tbody id="pdf-table-body">
+      <tr>
+        <td class="border border-black px-2 py-1">2023</td>
+        <td class="border border-black px-2 py-1">May</td>
+        <td class="border border-black px-2 py-1">1</td>
+        <td class="border border-black px-2 py-1">434.87</td>
+        <td class="border border-black px-2 py-1">2,228.33</td>
+        <td class="border border-black px-2 py-1">6494-2 CASA MANTICA SA</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mt-6 text-right">
+    <p>DIRECCIÓN GENERAL DE PRESTACIONES ECONÓMICAS</p>
+    <p class="mt-10">___________________________</p>
+    <p class="text-center">Firma y sello</p>
+  </div>
+</div>
+
 <script>
-  // Mostrar pantalla
   function showScreen(id) {
     document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add("hidden"));
     const screen = document.getElementById(`screen-${id}`);
@@ -313,24 +352,49 @@
   // Manejo de registro
   document.getElementById("register-form").addEventListener("submit", function(e) {
     e.preventDefault();
+
     const pass = document.getElementById("reg-password").value;
     const confirmPass = document.getElementById("reg-confirmpass").value;
     const idNumber = document.getElementById("reg-idnumber").value;
+    const username = document.getElementById("reg-username").value;
+
     const passError = document.getElementById("pass-error");
     const idError = document.getElementById("id-error");
+    const idTaken = document.getElementById("id-taken");
+    const usernameTaken = document.getElementById("username-taken");
+
+    passError.classList.add("hidden");
+    idError.classList.add("hidden");
+    idTaken.classList.add("hidden");
+    usernameTaken.classList.add("hidden");
+
     const idRegex = /^[A-Za-z0-9]{3}-[A-Za-z0-9]{6}-[A-Za-z0-9]{5}$/;
 
     if (pass !== confirmPass) {
+      passError.textContent = "Las contraseñas no coinciden";
       passError.classList.remove("hidden");
       return;
-    } else {
-      passError.classList.add("hidden");
     }
+
     if (!idRegex.test(idNumber)) {
+      idError.textContent = "Formato inválido. Use XXX-XXXXXX-XXXXX";
       idError.classList.remove("hidden");
       return;
-    } else {
-      idError.classList.add("hidden");
+    }
+
+    let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const existingUserByUsername = users.find(u => u.username === username);
+    const existingUserByIdNumber = users.find(u => u.idNumber === idNumber);
+
+    if (existingUserByUsername) {
+      usernameTaken.classList.remove("hidden");
+      return;
+    }
+
+    if (existingUserByIdNumber) {
+      idTaken.classList.remove("hidden");
+      return;
     }
 
     const newUser = {
@@ -338,11 +402,10 @@
       idNumber: idNumber,
       idAddress: document.getElementById("reg-address").value,
       email: document.getElementById("reg-email").value,
-      username: document.getElementById("reg-username").value,
+      username: username,
       password: pass
     };
 
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
     showScreen("verification");
@@ -406,15 +469,12 @@
     } else if (!document.getElementById("screen-id-back").classList.contains("hidden")) {
       currentVideo = document.getElementById("camera-video-idback");
     }
-
     if (!currentVideo) return;
-
     canvas.width = currentVideo.videoWidth;
     canvas.height = currentVideo.videoHeight;
     const ctx = canvas.getContext("2d");
     ctx.drawImage(currentVideo, 0, 0, canvas.width, canvas.height);
     const photoData = canvas.toDataURL("image/png");
-
     const step = getCurrentStep();
     if (step === 'face-front') {
       localStorage.setItem('faceFront', photoData);
@@ -478,7 +538,6 @@
     }
   }
 
-  // Actualizar placeholder tipo documento
   function updateHistorialPlaceholder() {
     const tipo = document.querySelector('input[name="tipoDocumento"]:checked').value;
     const input = document.getElementById("historial-input");
@@ -492,7 +551,7 @@
     }
   }
 
-  // Manejar envío del historial
+  // Generar PDF del historial
   document.getElementById("historial-form").addEventListener("submit", function(e) {
     e.preventDefault();
     const tipo = document.querySelector('input[name="tipoDocumento"]:checked').value;
@@ -511,37 +570,38 @@
     generateHistorialPDF(userData);
   });
 
-  // Generar PDF del historial
   function generateHistorialPDF(userData) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.setFontSize(16);
-    doc.text("INSTITUTO NICARAGÜENSE DE SEGURIDAD SOCIAL", 20, 20);
-
-    doc.setFontSize(14);
-    doc.text("Datos del Afiliado", 20, 40);
-    doc.setFontSize(12);
-    doc.text(`Nombre Completo: ${userData.fullName}`, 20, 50);
-    doc.text(`Cédula: ${userData.idNumber}`, 20, 60);
-    doc.text(`Dirección: ${userData.idAddress}`, 20, 70);
-    doc.text(`Correo Electrónico: ${userData.email}`, 20, 80);
-
-    doc.text("Historial Laboral", 20, 100);
-    doc.line(20, 102, 190, 102);
-
-    let y = 110;
+    const template = document.getElementById('pdf-template');
+    const tableBody = document.getElementById('pdf-table-body');
+    // Limpiar tabla anterior
+    tableBody.innerHTML = '';
+    // Simular historial laboral
     const sampleJobs = [
-      { employer: "Empresa A", from: "2010", to: "2015", salary: "$500" },
-      { employer: "Empresa B", from: "2015", to: "2020", salary: "$700" },
-      { employer: "Empresa C", from: "2020", to: "Actualidad", salary: "$900" }
+      { year: "2023", month: "May", weeks: "1", ivm: "434.87", salary: "2,228.33", employer: "6494-2 CASA MANTICA SA" },
+      { year: "2022", month: "Jul", weeks: "4", ivm: "450.00", salary: "2,300.00", employer: "EMPRESA X" },
+      { year: "2021", month: "Ene", weeks: "5", ivm: "400.00", salary: "2,000.00", employer: "EMPRESA Y" }
     ];
     sampleJobs.forEach(job => {
-      doc.text(`${job.employer} (${job.from} - ${job.to})`, 20, y);
-      doc.text(`Salario: ${job.salary}`, 20, y + 8);
-      y += 16;
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="border border-black px-2 py-1">${job.year}</td>
+        <td class="border border-black px-2 py-1">${job.month}</td>
+        <td class="border border-black px-2 py-1">${job.weeks}</td>
+        <td class="border border-black px-2 py-1">${job.ivm}</td>
+        <td class="border border-black px-2 py-1">${job.salary}</td>
+        <td class="border border-black px-2 py-1">${job.employer}</td>
+      `;
+      tableBody.appendChild(row);
     });
-    doc.save(`historial_${userData.idNumber}.pdf`);
+    // Generar y descargar PDF
+    const options = {
+      margin:       10,
+      filename:     `historial_${userData.idNumber}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(options).from(template).save();
   }
 
   // Navegación desde dashboard
